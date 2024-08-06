@@ -12,8 +12,8 @@ namespace TechRequest.API.Dtos.Request
 
         public int ApplicantId { get; set; }
 
-        public virtual ApplicantDto Applicant { get; set; } = null!;
+        public virtual ApplicantDto ApplicantDto { get; set; } = null!;
 
-        //public virtual ICollection<User> Executors { get; set; } = new List<User>();
+        public virtual ICollection<ExecutorDto> ExecutorsDto { get; set; } = new List<ExecutorDto>();
     }
 }

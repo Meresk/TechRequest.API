@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TechRequest.API.Dtos.Request;
 using TechRequest.API.Interfaces;
+using TechRequest.API.Mappers;
 using TechRequest.API.Models;
 
 namespace TechRequest.API.Repository
@@ -13,9 +15,14 @@ namespace TechRequest.API.Repository
             _dbContext = context;
         }
 
-        public async Task<List<Request>> GetAllAsync()
+        public async Task<List<RequestDto>> GetAllAsync()
         {
-            return await _dbContext.Requests.Include(a => a.Applicant).Include(e => e.Executors).ToListAsync();
+            var requests = await _dbContext.Requests
+                   .Include(r => r.Applicant)
+                   .Include(r => r.Executors)
+                   .ToListAsync();
+
+            return requests.Select(r => r.ToRequestDto()).ToList();
         }
     }
 }
