@@ -50,7 +50,7 @@ namespace TechRequest.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateUserRequestDto userDto)
+        public async Task<IActionResult> Create([FromBody] CreateUserDto userDto)
         {
             var userModel = userDto.ToUserFromCreateDto();
             await _userRepository.CreateAsync(userModel);
@@ -60,7 +60,7 @@ namespace TechRequest.API.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateUserRequestDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateUserDto updateDto)
         {
             var userModel = await _userRepository.UpdateAsync(id, updateDto);
 

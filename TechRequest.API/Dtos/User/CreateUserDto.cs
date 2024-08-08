@@ -1,6 +1,6 @@
 ﻿namespace TechRequest.API.Dtos.User
 {
-    public class CreateUserRequestDto
+    public class CreateUserDto
     {
         public string Login { get; set; } = null!;
 

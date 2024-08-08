@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TechRequest.API.Dtos.Request;
 using TechRequest.API.Interfaces;
 
 namespace TechRequest.API.Controllers
@@ -27,6 +28,27 @@ namespace TechRequest.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+            try
+            {
+                var request = await _requestRepository.GetByIdAsync(id);
+                return Ok(request);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateRequestDto requestDto)
+        {
+            //TODO
+            return Ok(requestDto);
         }
     }
 }

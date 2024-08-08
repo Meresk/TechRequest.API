@@ -1,6 +1,6 @@
 ﻿namespace TechRequest.API.Dtos.User
 {
-    public class UpdateUserRequestDto
+    public class UpdateUserDto
     {
         public string Login { get; set; } = null!;
 

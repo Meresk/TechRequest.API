@@ -5,8 +5,13 @@ namespace TechRequest.API.Mappers
 {
     public static class RequestMappers
     {
-        public static RequestDto ToRequestDto(this Request request)
+        public static RequestDto? ToRequestDto(this Request request)
         {
+            if(request == null)
+            {
+                return null;
+            }
+
             return new RequestDto
             {
                 RequestId = request.RequestId,

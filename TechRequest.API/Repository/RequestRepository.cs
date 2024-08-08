@@ -15,7 +15,7 @@ namespace TechRequest.API.Repository
             _dbContext = context;
         }
 
-        public async Task<List<RequestDto>> GetAllAsync()
+        public async Task<List<RequestDto?>> GetAllAsync()
         {
             var requests = await _dbContext.Requests
                    .Include(r => r.Applicant)
@@ -23,6 +23,16 @@ namespace TechRequest.API.Repository
                    .ToListAsync();
 
             return requests.Select(r => r.ToRequestDto()).ToList();
+        }
+
+        public async Task<RequestDto?> GetByIdAsync(int id)
+        {
+            var request = await _dbContext.Requests
+                .Include(r => r.Applicant)
+                .Include(r => r.Executors)
+                .FirstOrDefaultAsync(r => r.RequestId == id);
+
+            return request?.ToRequestDto();
         }
     }
 }

@@ -46,7 +46,7 @@ namespace TechRequest.API.Repository
             return await _dbContext.Users.FindAsync(id);
         }
 
-        public async Task<User?> UpdateAsync(int id, UpdateUserRequestDto userDto)
+        public async Task<User?> UpdateAsync(int id, UpdateUserDto userDto)
         {
             var existingUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserId == id);
 

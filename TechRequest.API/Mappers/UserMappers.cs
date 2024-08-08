@@ -8,7 +8,7 @@ namespace TechRequest.API.Mappers
         /*
          * Метод расширения для преобразования из DTO user в Model user
          */
-        public static User ToUserFromCreateDto(this CreateUserRequestDto userDto)
+        public static User ToUserFromCreateDto(this CreateUserDto userDto)
         {
             return new User
             {
@@ -33,6 +33,7 @@ namespace TechRequest.API.Mappers
             Name = user.Name,
             Surname = user.Surname,
             Patronymic = user.Patronymic,
+            // Возможно тут нужны роли
         };
     }
 }
