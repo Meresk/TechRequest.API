@@ -1,3 +1,6 @@
+using TechRequest.API.Converters;
+using TechRequest.API.Dtos.Request;
+using TechRequest.API.Dtos.User;
 using TechRequest.API.Interfaces;
 using TechRequest.API.Models;
 using TechRequest.API.Repository;
@@ -20,6 +23,9 @@ builder.Services.AddScoped<Context>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IRequestRepository, RequestRepository>();
+builder.Services.AddScoped<IConverter<User, ApplicantDto>, UserToApplicantConverter>();
+builder.Services.AddScoped<IConverter<User, ExecutorDto>, UserToExecutorConverter>();
+builder.Services.AddScoped<IConverter<Request, RequestDto?>, RequestConverter>();
 
 var app = builder.Build();
 

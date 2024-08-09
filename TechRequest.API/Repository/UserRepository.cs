@@ -55,6 +55,8 @@ namespace TechRequest.API.Repository
                 return null;
             }
 
+            //TODO В конвертре
+
             existingUser.Login = userDto.Login;
             existingUser.Password = userDto.Password;
 

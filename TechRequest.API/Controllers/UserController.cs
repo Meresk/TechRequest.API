@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TechRequest.API.Dtos.User;
 using TechRequest.API.Interfaces;
-using TechRequest.API.Mappers;
 using TechRequest.API.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -49,14 +48,14 @@ namespace TechRequest.API.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateUserDto userDto)
-        {
-            var userModel = userDto.ToUserFromCreateDto();
-            await _userRepository.CreateAsync(userModel);
+        //[HttpPost]
+        //public async Task<IActionResult> Create([FromBody] CreateUserDto userDto)
+        //{
+        //    var userModel = userDto.ToUserFromCreateDto();
+        //    await _userRepository.CreateAsync(userModel);
 
-            return Ok(userModel);
-        }
+        //    return Ok(userModel);
+        //}
 
         [HttpPut]
         [Route("{id}")]

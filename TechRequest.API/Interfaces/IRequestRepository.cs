@@ -5,7 +5,7 @@ namespace TechRequest.API.Interfaces
 {
     public interface IRequestRepository
     {
-        Task<List<RequestDto?>> GetAllAsync();
+        Task<List<RequestDto>> GetAllAsync();
 
         Task<RequestDto?> GetByIdAsync(int id);
     }
