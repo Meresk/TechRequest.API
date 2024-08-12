@@ -44,15 +44,14 @@ namespace TechRequest.API.Repository
             return _converter.Convert(request);
         }
 
-        public async Task<Request?> CreateAsync(RequestCreationDto requestCreationDto)
+        public async Task<RequestDto?> CreateAsync(RequestCreationDto requestCreationDto)
         {
             var request = _createConverter.Convert(requestCreationDto);
 
             await _dbContext.Requests.AddAsync(request);
             await _dbContext.SaveChangesAsync();
 
-            // Нужно ли??
-            return request;
+            return await GetByIdAsync(request.RequestId);
         }
 
         public async Task<Request?> DeleteAsync(int id)

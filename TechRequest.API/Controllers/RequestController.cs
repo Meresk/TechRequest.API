@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TechRequest.API.Dtos.Request;
 using TechRequest.API.Interfaces;
-using TechRequest.API.Repository;
 
 namespace TechRequest.API.Controllers
 {
