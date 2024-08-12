@@ -13,6 +13,6 @@ namespace TechRequest.API.Interfaces
 
         Task<RequestDto?> UpdateAsync(int id, RequestUpdationDto requestUpdationDto);
 
-        Task<Request?> DeleteAsync(int id);
+        Task<RequestDto?> DeleteAsync(int id);
     }
 }

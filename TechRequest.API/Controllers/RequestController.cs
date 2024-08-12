@@ -77,6 +77,7 @@ namespace TechRequest.API.Controllers
                 return NotFound();
             }
 
+            //return Ok(request);
             return NoContent();
         }
     }

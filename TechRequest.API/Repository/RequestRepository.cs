@@ -63,7 +63,7 @@ namespace TechRequest.API.Repository
             return await GetByIdAsync(existingRequest.RequestId);
         }
 
-        public async Task<Request?> DeleteAsync(int id)
+        public async Task<RequestDto?> DeleteAsync(int id)
         {
             var requestModel = await _dbContext.Requests.FirstOrDefaultAsync(r => r.RequestId == id);
 
@@ -72,10 +72,12 @@ namespace TechRequest.API.Repository
                 return null;
             }
 
+            var dtoToReturn = await GetByIdAsync(requestModel.RequestId);
+
             _dbContext.Requests.Remove(requestModel);
             await _dbContext.SaveChangesAsync();
 
-            return requestModel;
+            return dtoToReturn;
         }
     }
 }
