@@ -5,9 +5,14 @@ using TechRequest.API.Models;
 
 namespace TechRequest.API.Converters.RequestConverters
 {
-    public class RequestToDtoConverter(IConverter<User, ApplicantDto> userToApplicantConverter, IConverter<User, ExecutorDto> userToExecutorConverter)
+    public class RequestToDtoConverter( 
+        IConverter<User, ApplicantDto> userToApplicantConverter,
+        IConverter<User, ExecutorDto> userToExecutorConverter) 
         : IConverter<Request, RequestDto?>
     {
+        private readonly IConverter<User, ApplicantDto> userToApplicantConverter = userToApplicantConverter;
+        private readonly IConverter<User, ExecutorDto> userToExecutorConverter = userToExecutorConverter;
+
         public RequestDto? Convert(Request request)
         {
             if (request == null)

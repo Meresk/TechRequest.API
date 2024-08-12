@@ -28,7 +28,6 @@ builder.Services.AddScoped<IConverter<User, ApplicantDto>, UserToApplicantConver
 builder.Services.AddScoped<IConverter<User, ExecutorDto>, UserToExecutorConverter>();
 builder.Services.AddScoped<IConverter<Request, RequestDto?>, RequestToDtoConverter>();
 builder.Services.AddScoped<IConverter<RequestCreationDto, Request?>, CreateDtoToRequestConverter>();
-builder.Services.AddScoped<IConverter<RequestUpdationDto, Request?>, UpdateDtoToRequestConverter>();
 
 var app = builder.Build();
 

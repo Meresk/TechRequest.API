@@ -5,24 +5,14 @@ using TechRequest.API.Models;
 
 namespace TechRequest.API.Repository
 {
-    public class RequestRepository : IRequestRepository
+    public class RequestRepository(
+        Context context,
+        IConverter<Request, RequestDto> converter,
+        IConverter<RequestCreationDto, Request> createConverter) : IRequestRepository
     {
-        private readonly Context _dbContext;
-        private readonly IConverter<Request, RequestDto> _converter;
-        private readonly IConverter<RequestCreationDto, Request> _createConverter;
-        private readonly IConverter<RequestUpdationDto, Request> _updateConverter;
-
-        public RequestRepository(
-            Context context,
-            IConverter<Request, RequestDto> converter,
-            IConverter<RequestCreationDto, Request> createConverter,
-            IConverter<RequestUpdationDto, Request> updateConverter)
-        {
-            _dbContext = context;
-            _converter = converter;
-            _createConverter = createConverter;
-            _updateConverter = updateConverter;
-        }
+        private readonly Context _dbContext = context;
+        private readonly IConverter<Request, RequestDto> _converter = converter;
+        private readonly IConverter<RequestCreationDto, Request> _createConverter = createConverter;
 
         public async Task<List<RequestDto>> GetAllAsync()
         {

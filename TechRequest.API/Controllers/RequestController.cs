@@ -1,21 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TechRequest.API.Dtos.Request;
-using TechRequest.API.Dtos.User;
 using TechRequest.API.Interfaces;
-using TechRequest.API.Repository;
 
 namespace TechRequest.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RequestController : ControllerBase
+    public class RequestController(IRequestRepository requestRepository) : ControllerBase
     {
-        private readonly IRequestRepository _requestRepository;
-
-        public RequestController(IRequestRepository requestRepository)
-        {
-            _requestRepository = requestRepository;
-        }
+        private readonly IRequestRepository _requestRepository = requestRepository;
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
