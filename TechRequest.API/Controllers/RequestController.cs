@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TechRequest.API.Dtos.Request;
+using TechRequest.API.Dtos.User;
 using TechRequest.API.Interfaces;
+using TechRequest.API.Repository;
 
 namespace TechRequest.API.Controllers
 {
@@ -16,7 +18,7 @@ namespace TechRequest.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
@@ -55,6 +57,20 @@ namespace TechRequest.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] RequestUpdationDto requestUpdationDto)
+        {
+            var requestDto = await _requestRepository.UpdateAsync(id, requestUpdationDto);
+
+            if (requestDto == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(requestDto);
         }
 
         [HttpDelete]

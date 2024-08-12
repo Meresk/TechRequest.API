@@ -70,8 +70,7 @@ namespace TechRequest.API.Repository
 
             await _dbContext.SaveChangesAsync();
 
-
-            return _converter.Convert(existingRequest);
+            return await GetByIdAsync(existingRequest.RequestId);
         }
 
         public async Task<Request?> DeleteAsync(int id)
