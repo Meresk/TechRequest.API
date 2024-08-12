@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TechRequest.API.Dtos.Request;
 using TechRequest.API.Interfaces;
+using TechRequest.API.Repository;
 
 namespace TechRequest.API.Controllers
 {
@@ -45,10 +46,31 @@ namespace TechRequest.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateRequestDto requestDto)
+        public async Task<IActionResult> Create([FromBody] RequestCreationDto requestDto)
         {
-            //TODO
-            return Ok(requestDto);
+            try
+            {
+                var request = await _requestRepository.CreateAsync(requestDto);
+                return Ok(request);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var request = await _requestRepository.DeleteAsync(id);
+
+            if (request == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
     }
 }

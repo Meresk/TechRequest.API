@@ -25,6 +25,7 @@ namespace TechRequest.API.Repository
         public async Task<User?> DeleteAsync(int id)
         {
             var userModel = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserId == id);
+
             if (userModel == null)
             {
                 return null;

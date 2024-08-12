@@ -5,31 +5,34 @@ using TechRequest.API.Models;
 
 namespace TechRequest.API.Repository
 {
-    public class RequestRepository(Context context, IConverter<Request, RequestDto> converter) : IRequestRepository
+    public class RequestRepository : IRequestRepository
     {
-        //private readonly Context _dbContext;
-        //private readonly IConverter<Request, RequestDto> _converter;
-        // риадонли
+        private readonly Context _dbContext;
+        private readonly IConverter<Request, RequestDto> _converter;
+        private readonly IConverter<RequestCreationDto, Request> _createConverter;
 
-        //public RequestRepository(Context context, IConverter<Request, RequestDto> converter)
-        //{
-        //    _dbContext = context;
-        //    _converter = converter;
-        //}
+        public RequestRepository(
+            Context context, IConverter<Request, RequestDto> converter,
+            IConverter<RequestCreationDto, Request> createConverter)
+        {
+            _dbContext = context;
+            _converter = converter;
+            _createConverter = createConverter;
+        }
 
         public async Task<List<RequestDto>> GetAllAsync()
         {
-            var requests = await context.Requests
+            var requests = await _dbContext.Requests
                    .Include(r => r.Applicant)
                    .Include(r => r.Executors)
                    .ToListAsync();
 
-            return requests.Select(converter.Convert).ToList();
+            return requests.Select(_converter.Convert).ToList();
         }
 
         public async Task<RequestDto?> GetByIdAsync(int id)
         {
-            var request = await context.Requests
+            var request = await _dbContext.Requests
                 .Include(r => r.Applicant)
                 .Include(r => r.Executors)
                 .FirstOrDefaultAsync(r => r.RequestId == id);
@@ -38,7 +41,33 @@ namespace TechRequest.API.Repository
             if (request == null)
                 return null;
 
-            return converter.Convert(request);
+            return _converter.Convert(request);
+        }
+
+        public async Task<Request?> CreateAsync(RequestCreationDto requestCreationDto)
+        {
+            var request = _createConverter.Convert(requestCreationDto);
+
+            await _dbContext.Requests.AddAsync(request);
+            await _dbContext.SaveChangesAsync();
+
+            // Нужно ли??
+            return request;
+        }
+
+        public async Task<Request?> DeleteAsync(int id)
+        {
+            var requestModel = await _dbContext.Requests.FirstOrDefaultAsync(r => r.RequestId == id);
+
+            if (requestModel == null)
+            {
+                return null;
+            }
+
+            _dbContext.Requests.Remove(requestModel);
+            await _dbContext.SaveChangesAsync();
+
+            return requestModel;
         }
     }
 }

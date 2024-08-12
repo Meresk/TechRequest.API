@@ -5,7 +5,7 @@ using TechRequest.API.Models;
 
 namespace TechRequest.API.Converters
 {
-    public class RequestConverter(IConverter<User, ApplicantDto> userToApplicantConverter, IConverter<User, ExecutorDto> userToExecutorConverter)
+    public class RequestToDtoConverter(IConverter<User, ApplicantDto> userToApplicantConverter, IConverter<User, ExecutorDto> userToExecutorConverter)
         : IConverter<Request, RequestDto?>
     {
         public RequestDto? Convert(Request request)

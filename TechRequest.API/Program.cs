@@ -25,7 +25,8 @@ builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IRequestRepository, RequestRepository>();
 builder.Services.AddScoped<IConverter<User, ApplicantDto>, UserToApplicantConverter>();
 builder.Services.AddScoped<IConverter<User, ExecutorDto>, UserToExecutorConverter>();
-builder.Services.AddScoped<IConverter<Request, RequestDto?>, RequestConverter>();
+builder.Services.AddScoped<IConverter<Request, RequestDto?>, RequestToDtoConverter>();
+builder.Services.AddScoped<IConverter<RequestCreationDto, Request?>, CreateDtoToRequestConverter>();
 
 var app = builder.Build();
 
