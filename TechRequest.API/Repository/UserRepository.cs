@@ -52,9 +52,7 @@ namespace TechRequest.API.Repository
             var existingUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserId == id);
 
             if (existingUser == null)
-            {
                 return null;
-            }
 
             //TODO В конвертре
 

@@ -9,9 +9,9 @@ namespace TechRequest.API.Interfaces
 
         Task<RequestDto?> GetByIdAsync(int id);
 
-        Task<RequestDto?> CreateAsync(RequestCreationDto createRequestDto);
+        Task<RequestDto?> CreateAsync(RequestCreationDto requestCreationDto);
 
-        //Task<RequestDto?> UpdateAsync(int id, UpdateRequestDto);
+        Task<RequestDto?> UpdateAsync(int id, RequestUpdationDto requestUpdationDto);
 
         Task<Request?> DeleteAsync(int id);
     }

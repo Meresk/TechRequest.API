@@ -3,7 +3,7 @@ using TechRequest.API.Dtos.User;
 using TechRequest.API.Interfaces;
 using TechRequest.API.Models;
 
-namespace TechRequest.API.Converters
+namespace TechRequest.API.Converters.RequestConverters
 {
     public class RequestToDtoConverter(IConverter<User, ApplicantDto> userToApplicantConverter, IConverter<User, ExecutorDto> userToExecutorConverter)
         : IConverter<Request, RequestDto?>

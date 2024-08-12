@@ -10,14 +10,18 @@ namespace TechRequest.API.Repository
         private readonly Context _dbContext;
         private readonly IConverter<Request, RequestDto> _converter;
         private readonly IConverter<RequestCreationDto, Request> _createConverter;
+        private readonly IConverter<RequestUpdationDto, Request> _updateConverter;
 
         public RequestRepository(
-            Context context, IConverter<Request, RequestDto> converter,
-            IConverter<RequestCreationDto, Request> createConverter)
+            Context context,
+            IConverter<Request, RequestDto> converter,
+            IConverter<RequestCreationDto, Request> createConverter,
+            IConverter<RequestUpdationDto, Request> updateConverter)
         {
             _dbContext = context;
             _converter = converter;
             _createConverter = createConverter;
+            _updateConverter = updateConverter;
         }
 
         public async Task<List<RequestDto>> GetAllAsync()
@@ -52,6 +56,22 @@ namespace TechRequest.API.Repository
             await _dbContext.SaveChangesAsync();
 
             return await GetByIdAsync(request.RequestId);
+        }
+
+        public async Task<RequestDto?> UpdateAsync(int id, RequestUpdationDto requestUpdationDto)
+        {
+            var existingRequest = await _dbContext.Requests.FirstOrDefaultAsync(r => r.RequestId == id);
+
+            if (existingRequest == null)
+                return null;
+
+            existingRequest.Description = requestUpdationDto.Description;
+            existingRequest.Reason = requestUpdationDto.Reason;
+
+            await _dbContext.SaveChangesAsync();
+
+
+            return _converter.Convert(existingRequest);
         }
 
         public async Task<Request?> DeleteAsync(int id)
