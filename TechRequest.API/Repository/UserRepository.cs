@@ -54,8 +54,6 @@ namespace TechRequest.API.Repository
             if (existingUser == null)
                 return null;
 
-            //TODO В конвертре
-
             existingUser.Login = userDto.Login;
             existingUser.Password = userDto.Password;
 

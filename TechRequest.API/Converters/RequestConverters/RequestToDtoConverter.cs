@@ -21,6 +21,7 @@ namespace TechRequest.API.Converters.RequestConverters
             return new RequestDto
             {
                 RequestId = request.RequestId,
+                Status = request.Status,
                 Reason = request.Reason,
                 Description = request.Description,
                 ApplicantId = request.ApplicantId,

@@ -7,6 +7,8 @@ public partial class Request
 {
     public int RequestId { get; set; }
 
+    public string Status { get; set; } = null!;
+
     public string Reason { get; set; } = null!;
 
     public string? Description { get; set; }

@@ -4,14 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TechRequest.API.Models;
 
-public partial class Context : DbContext
+public partial class Context(IConfiguration configuration) : DbContext
 {
-    private readonly IConfiguration _configuration;
-
-    public Context(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
+    private readonly IConfiguration _configuration = configuration;
 
     public virtual DbSet<Request> Requests { get; set; }
 
@@ -38,6 +33,9 @@ public partial class Context : DbContext
             entity.Property(e => e.Reason)
                 .HasMaxLength(255)
                 .HasColumnName("reason");
+            entity.Property(e => e.Status)
+                .HasMaxLength(100)
+                .HasColumnName("status");
 
             entity.HasOne(d => d.Applicant).WithMany(p => p.RequestsNavigation)
                 .HasForeignKey(d => d.ApplicantId)

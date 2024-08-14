@@ -6,6 +6,8 @@ namespace TechRequest.API.Dtos.Request
     {
         public int RequestId { get; set; }
 
+        public required string Status {  get; set; }
+
         public string Reason { get; set; } = null!;
 
         public string? Description { get; set; }

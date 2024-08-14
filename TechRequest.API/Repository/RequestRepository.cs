@@ -55,6 +55,7 @@ namespace TechRequest.API.Repository
             if (existingRequest == null)
                 return null;
 
+            existingRequest.Status = requestUpdationDto.Status;
             existingRequest.Description = requestUpdationDto.Description;
             existingRequest.Reason = requestUpdationDto.Reason;
 
