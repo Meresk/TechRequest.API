@@ -2,8 +2,8 @@
 {
     public class FilterParams
     {
-        public required string Status { get; set; }
+        public string? Status { get; set; } = null;
 
-        public required string Reason { get; set; }
+        public string? Reason { get; set; } = null;
     }
 }

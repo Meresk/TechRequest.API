@@ -2,8 +2,8 @@
 {
     public class RequestQueryParams
     {
-        public required FilterParams Filter { get; set; }
-        public required SortParams Sort { get; set; }
-        public required PaginationParams Pagination { get; set; }
+        public FilterParams? Filter { get; set; } = null;
+        public SortParams? Sort { get; set; } = null;
+        public PaginationParams Pagination { get; set; } = new PaginationParams();
     }
 }

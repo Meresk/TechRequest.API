@@ -2,6 +2,7 @@
 using TechRequest.API.Dtos.Request;
 using TechRequest.API.Interfaces;
 using TechRequest.API.Parameters;
+using TechRequest.API.Parameters.Request;
 
 namespace TechRequest.API.Controllers
 {
@@ -12,14 +13,14 @@ namespace TechRequest.API.Controllers
         private readonly IRequestRepository _requestRepository = requestRepository;
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] RequestQueryParams requestQueryParams)
         {
             try
             {
                 if(!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var requests = await _requestRepository.GetAllAsync();
+                var requests = await _requestRepository.GetAllAsync(requestQueryParams);
                 return Ok(requests);
             }
             catch (Exception ex)

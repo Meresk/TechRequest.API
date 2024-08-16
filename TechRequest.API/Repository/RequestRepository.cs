@@ -2,7 +2,7 @@
 using TechRequest.API.Dtos.Request;
 using TechRequest.API.Interfaces;
 using TechRequest.API.Models;
-using TechRequest.API.Parameters;
+using TechRequest.API.Parameters.Request;
 
 namespace TechRequest.API.Repository
 {
@@ -15,12 +15,35 @@ namespace TechRequest.API.Repository
         private readonly IConverter<Request, RequestDto> _converter = converter;
         private readonly IConverter<RequestCreationDto, Request> _createConverter = createConverter;
 
-        public async Task<List<RequestDto>> GetAllAsync()
+        public async Task<List<RequestDto>> GetAllAsync(RequestQueryParams requestQueryParams)
         {
-            var requests = await _dbContext.Requests
+            var query = _dbContext.Requests
+                   .AsNoTracking()
                    .Include(r => r.Applicant)
                    .Include(r => r.Executors)
-                   .ToListAsync();
+                   .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(requestQueryParams.Filter?.Status))
+            {
+                query = query.Where(r => r.Status == requestQueryParams.Filter.Status);
+            }
+
+            if (!string.IsNullOrWhiteSpace(requestQueryParams.Filter?.Reason))
+            {
+                query = query.Where(r => r.Reason == requestQueryParams.Filter.Reason);
+            }
+
+            if (!string.IsNullOrWhiteSpace(requestQueryParams.Sort?.SortBy))
+            {
+                if (requestQueryParams.Sort.SortBy.Equals("requestId", StringComparison.OrdinalIgnoreCase))
+                {
+                    query = requestQueryParams.Sort.Descending ? query.OrderByDescending(r => r.RequestId) : query.OrderBy(r => r.RequestId);
+                }
+            }
+
+            var skipNumber = (requestQueryParams.Pagination.Page - 1) * requestQueryParams.Pagination.PageSize;
+
+            var requests = await query.Skip(skipNumber).Take(requestQueryParams.Pagination.PageSize).ToListAsync();
 
             return requests.Select(_converter.Convert).ToList();
         }
