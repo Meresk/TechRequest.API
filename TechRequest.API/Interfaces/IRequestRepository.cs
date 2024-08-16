@@ -1,5 +1,5 @@
 ﻿using TechRequest.API.Dtos.Request;
-using TechRequest.API.Models;
+using TechRequest.API.Parameters;
 
 namespace TechRequest.API.Interfaces
 {

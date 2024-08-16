@@ -2,6 +2,7 @@
 using TechRequest.API.Dtos.Request;
 using TechRequest.API.Interfaces;
 using TechRequest.API.Models;
+using TechRequest.API.Parameters;
 
 namespace TechRequest.API.Repository
 {
