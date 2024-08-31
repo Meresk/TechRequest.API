@@ -14,12 +14,23 @@ namespace TechRequest.API.Repository
             _dbContext = context;
         }
 
-        public async Task<User> CreateAsync(User userModel)
+        public async Task<User?> CreateAsync(string login, string password)
         {
-            await _dbContext.Users.AddAsync(userModel);
+            var userExist = await _dbContext.Users.FirstOrDefaultAsync(u => u.Login == login);
+
+            if (userExist != null)
+                return null;
+
+            var user = new User
+            {
+                Login = login,
+                Password = BCrypt.Net.BCrypt.HashPassword(password)
+            };
+
+            await _dbContext.Users.AddAsync(user);
             await _dbContext.SaveChangesAsync();
 
-            return userModel;
+            return user;
         }
 
         public async Task<User?> DeleteAsync(int id)

@@ -8,6 +8,7 @@ using TechRequest.API.Dtos.User;
 using TechRequest.API.Interfaces;
 using TechRequest.API.Models;
 using TechRequest.API.Repository;
+using TechRequest.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +49,8 @@ builder.Services.AddScoped<IConverter<User, ApplicantDto>, UserToApplicantConver
 builder.Services.AddScoped<IConverter<User, ExecutorDto>, UserToExecutorConverter>();
 builder.Services.AddScoped<IConverter<Request, RequestDto?>, RequestToDtoConverter>();
 builder.Services.AddScoped<IConverter<RequestCreationDto, Request?>, CreateDtoToRequestConverter>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 

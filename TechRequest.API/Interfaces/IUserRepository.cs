@@ -7,7 +7,7 @@ namespace TechRequest.API.Interfaces
     {
         Task<List<User>> GetAllAsync();
         Task<User?> GetByIdAsync(int id);
-        Task<User> CreateAsync(User userModel);
+        Task<User> CreateAsync(string login, string password);
         Task<User?> UpdateAsync(int id, UpdateUserDto userDto);
         Task<User?> DeleteAsync(int id);
     }
