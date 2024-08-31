@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TechRequest.API.Dtos.Request;
 using TechRequest.API.Interfaces;
-using TechRequest.API.Parameters;
 using TechRequest.API.Parameters.Request;
 
 namespace TechRequest.API.Controllers
@@ -12,6 +11,11 @@ namespace TechRequest.API.Controllers
     {
         private readonly IRequestRepository _requestRepository = requestRepository;
 
+        /// <summary>
+        /// Retrieves all requests.
+        /// </summary>
+        /// <param name="requestQueryParams"></param>
+        /// <returns>A list of requests</returns>
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] RequestQueryParams requestQueryParams)
         {
