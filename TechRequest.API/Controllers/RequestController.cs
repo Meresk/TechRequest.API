@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TechRequest.API.Dtos.Request;
 using TechRequest.API.Interfaces;
 using TechRequest.API.Parameters.Request;
@@ -7,6 +8,7 @@ namespace TechRequest.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class RequestController(IRequestRepository requestRepository) : ControllerBase
     {
         private readonly IRequestRepository _requestRepository = requestRepository;
@@ -17,6 +19,7 @@ namespace TechRequest.API.Controllers
         /// <param name="requestQueryParams"></param>
         /// <returns>A list of requests</returns>
         [HttpGet]
+        
         public async Task<IActionResult> GetAll([FromQuery] RequestQueryParams requestQueryParams)
         {
             try

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using TechRequest.API.Models;
 
-namespace TechRequest.API.Models;
+namespace TechRequest.API.Data;
 
-public partial class Context(IConfiguration configuration) : DbContext
+public partial class Context : DbContext
 {
-    private readonly IConfiguration _configuration = configuration;
+    public Context(DbContextOptions<Context> options)
+        : base(options)
+    {
+    }
 
     public virtual DbSet<Request> Requests { get; set; }
 
@@ -14,13 +18,10 @@ public partial class Context(IConfiguration configuration) : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Request>(entity =>
         {
             entity.ToTable("requests");
@@ -91,6 +92,10 @@ public partial class Context(IConfiguration configuration) : DbContext
             entity.Property(e => e.Patronymic)
                 .HasMaxLength(50)
                 .HasColumnName("patronymic");
+            entity.Property(e => e.RefreshToken)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("refresh_token");
             entity.Property(e => e.RoleId).HasColumnName("role_id");
             entity.Property(e => e.Surname)
                 .HasMaxLength(50)

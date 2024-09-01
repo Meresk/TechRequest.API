@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using TechRequest.API.Data;
 using TechRequest.API.Interfaces;
 using TechRequest.API.Models;
 

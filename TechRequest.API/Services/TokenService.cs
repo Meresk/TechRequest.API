@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using NuGet.Common;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -22,8 +23,7 @@ namespace TechRequest.API.Services
         {
             var claims = new List<Claim>
             {
-                new(JwtRegisteredClaimNames.Email, user.Login),
-                new(JwtRegisteredClaimNames.GivenName, user.Name)
+                new(JwtRegisteredClaimNames.Name , user.Login),
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
@@ -31,13 +31,17 @@ namespace TechRequest.API.Services
             var tokenDesciptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddMinutes(30), // _config["JWT:TTL"]
+                Expires = DateTime.Now.AddMinutes(15), // _config["JWT:TTL"]
                 SigningCredentials = creds,
                 Issuer = _config["JWT:Issuer"],
                 Audience = _config["JWT:Audience"]
             };
 
-            throw new NotImplementedException();
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var token = tokenHandler.CreateToken(tokenDesciptor);
+
+            return tokenHandler.WriteToken(token);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TechRequest.API.Data;
 using TechRequest.API.Interfaces;
 using TechRequest.API.Models;
 

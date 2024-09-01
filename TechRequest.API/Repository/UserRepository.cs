@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TechRequest.API.Data;
 using TechRequest.API.Dtos.User;
 using TechRequest.API.Interfaces;
 using TechRequest.API.Models;
@@ -24,7 +25,8 @@ namespace TechRequest.API.Repository
             var user = new User
             {
                 Login = login,
-                Password = BCrypt.Net.BCrypt.HashPassword(password)
+                Password = BCrypt.Net.BCrypt.HashPassword(password),
+                RefreshToken = Guid.NewGuid().ToString()
             };
 
             await _dbContext.Users.AddAsync(user);
